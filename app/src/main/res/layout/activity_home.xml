@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="com.example.turja.spotit2.HomeActivity">
+    <include
+        android:id="@+id/toolbar_home"
+        layout="@layout/toolbar_home">
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="129dp"
+        android:layout_below="@+id/toolbar_home"
+        android:layout_alignParentStart="true">
+        <Button
+            android:id="@+id/reportBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/custombtn"
+            android:text="@string/reprort"
+            android:textColor="@color/colorAccent"
+            android:elevation="20dp"
+            android:onClick="buttonListner" />
+
+        <Button
+            android:id="@+id/searchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custombtn"
+            android:text="@string/search"
+            android:textColor="@color/colorAccent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_below="@+id/reportBtn"
+            android:layout_centerHorizontal="true"
+            android:elevation="20dp"/>
+
+        <Button
+            android:id="@+id/ranklistBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custombtn"
+            android:text="@string/view_rank"
+            android:textColor="@color/colorAccent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/searchBtn"
+            android:layout_alignParentEnd="true"
+            android:elevation="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/funny_icon"
+
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="30dp"
+            android:layout_below="@+id/ranklistBtn"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
