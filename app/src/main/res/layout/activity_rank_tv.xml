@@ -41,7 +41,23 @@
             android:layout_marginRight="18dp"
             android:layout_below="@+id/reportBtn"
             android:layout_centerHorizontal="true"
-            android:elevation="20dp"/>
+            android:elevation="20dp"
+            android:onClick="buttonListner"/>
+
+        <Button
+            android:id="@+id/rankByDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custombtn"
+            android:text="@string/rank_by_Day"
+            android:textColor="@color/colorAccent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/searchBtn"
+            android:layout_alignParentEnd="true"
+            android:elevation="20dp"
+            android:onClick="buttonListner"/>
 
         <Button
             android:id="@+id/ranklistBtn"
@@ -53,9 +69,11 @@
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="8dp"
-            android:layout_below="@+id/searchBtn"
+            android:layout_below="@+id/rankByDay"
             android:layout_alignParentEnd="true"
-            android:elevation="20dp"/>
+            android:elevation="20dp"
+            android:onClick="buttonListner"/>
+
 
         <ImageView
             android:layout_width="wrap_content"

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+//import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import model.ApiCall;
@@ -18,7 +18,7 @@ import model.TrafficViolation;
 public class SendTvData extends AsyncTask<String,Void,String> {
 
 
-    AlertDialog.Builder alertDialog;
+//    AlertDialog.Builder alertDialog;
     private Context context;
 
     public SendTvData(Context c){
@@ -27,7 +27,7 @@ public class SendTvData extends AsyncTask<String,Void,String> {
 
     protected void onPreExecute() {
         super.onPreExecute();
-        alertDialog = new AlertDialog.Builder(context);
+//        alertDialog = new AlertDialog.Builder(context);
     }
 
     @Override

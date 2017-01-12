@@ -18,7 +18,7 @@ import model.RequestData;
  * Created by CSE_BUET on 1/11/2017.
  */
 
-public class SendRankRequest extends AsyncTask<String, Void, String> {
+public class SendRankRequest extends AsyncTask<String, Void, String[]> {
     private Context context;
 
     public SendRankRequest(Context context) {
@@ -26,24 +26,24 @@ public class SendRankRequest extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        String result=null;
-        if(strings[0].equals("location")){
-            RequestData requestData=new RequestData("ranking","location");
+    protected String[] doInBackground(String... strings) {
+        String []result=new String[2];
+//        if(strings[0].equals("location")){
+            RequestData requestData=new RequestData("ranking",strings[0]);
             JSONObject jsonObject=requestData.constructJson();
             ApiCall api=new ApiCall();
             api.setGetRelativeUrl("getRank");
-             result=api.httpPost(jsonObject.toString(),"application/json");
-        }
+             result[0]=api.httpPost(jsonObject.toString(),"application/json");
+        result[1]=strings[0];
+//        }
         return result;
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(String[] s) {
         ArrayList<String> locations=new ArrayList<String>(); ArrayList<Integer>count=new ArrayList<Integer>();
-        Intent intent=new Intent(context,ShowTvList.class);
         try {
-            JSONArray ja=new JSONArray(s);
+            JSONArray ja=new JSONArray(s[0]);
             for(int i=0;i<ja.length();i++){
                 JSONObject jo=ja.getJSONObject(i);
                 locations.add(jo.getString("location"));
@@ -52,9 +52,12 @@ public class SendRankRequest extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+//        System.out.println(locations);
+//        System.out.println(count);
+        Intent intent=new Intent(context,ShowTvList.class);
         intent.putExtra("key",locations);
         intent.putExtra("count",count);
+        intent.putExtra("criteria",s[1]);
         context.startActivity(intent);
-
     }
 }

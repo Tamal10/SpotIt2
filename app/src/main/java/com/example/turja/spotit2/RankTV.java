@@ -3,7 +3,7 @@ package com.example.turja.spotit2;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,17 +25,21 @@ public class RankTV extends Activity {
     }
     public void buttonListner(View view)
     {
+        String criteria="Location";
         if(view.getId()==R.id.reportBtn){
-            SendRankRequest snd=new SendRankRequest(this);
-            snd.execute("location");
-            Intent intent=new Intent(this,ShowTvList.class);
-            startActivity(intent);
+            criteria="Location";
+        }
+        else if(view.getId()==R.id.rankByDay){
+            criteria="Day";
         }
         else if(view.getId()==R.id.ranklistBtn){
-
+            criteria="Violation Type";
         }
-        else{
-
+        else if(view.getId()==R.id.searchBtn){
+            criteria="Time Range";
         }
+        else return;
+        SendRankRequest snd=new SendRankRequest(this);
+        snd.execute(criteria);
     }
 }

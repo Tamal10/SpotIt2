@@ -10,14 +10,15 @@ import java.util.Locale;
 /**
  * Created by CSE_BUET on 1/9/2017.
  */
-
 public class TrafficViolation {
-    int id;
-    String type;
-    String description;
-    int photoId;
-    String location;
-    String date_time;
+    private int id;
+    private String type;
+    private String description;
+    private int photoId;
+    private String location;
+    private String date_time;
+    private String day;
+    private String[] dayMap={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
     public TrafficViolation(int id, String type, String description, int photoId) {
         this.id = id;
         this.type = type;
@@ -26,11 +27,7 @@ public class TrafficViolation {
     }
 
     public TrafficViolation() {
-        this.date_time=Calendar.getInstance().getTime().toString();
-        this.setType("horn");
-        this.setLocation("Palashi");
-        this.setDescription("foul driver");
-        this.photoId=4;
+        type="";description="";location="";date_time="";day="";
     }
 
     public int getId() {
@@ -55,6 +52,14 @@ public class TrafficViolation {
 
     public String getDate_time() {
         return date_time;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getDay() {
+        return day;
     }
 
     public void setId(int id) {
@@ -86,28 +91,47 @@ public class TrafficViolation {
     }
     public void setDate_time(String date, String time){
         Calendar c= Calendar.getInstance();
-
         int hour=Integer.parseInt(time.substring(0,2))%12;
-        if(time.charAt(6)=='a') hour+=12; // :/ :/ :/
+        if(time.charAt(6)=='p') hour+=12; // :/ :/ :/
 
         int min=Integer.parseInt(time.substring(3,5));
         int month=Integer.parseInt(date.substring(3, 5))-1;
 
-        c.set(Integer.parseInt(date.substring(6)),month , Integer.parseInt(date.substring(0, 2))-1);
-        c.set(Calendar.HOUR,hour);
+        c.set(Integer.parseInt(date.substring(6)),month , Integer.parseInt(date.substring(0, 2)));
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        System.out.println(hour+" AND "+Calendar.HOUR);
         c.set(Calendar.MINUTE, min);
-
+        int weekDay=c.get(Calendar.DAY_OF_WEEK);
+//        if(weekDay==0) weekDay=7;
+        System.out.println(c.getTime());
+        switch(weekDay){
+            case Calendar.SATURDAY:
+                day="Saturday";break;
+            case Calendar.SUNDAY:
+                day="Sunday";break;
+            case Calendar.WEDNESDAY:
+                day="Wednesday";break;
+            case Calendar.FRIDAY:
+                day="Friday";break;
+            case Calendar.MONDAY:
+                day="Monday";break;
+            case Calendar.TUESDAY:
+                day="Tuesday";break;
+            case Calendar.THURSDAY:
+                day="Thursday";break;
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
         date_time = sdf.format(c.getTime());
     }
 
-     public boolean constructDataFromJson(JSONObject js){
+    public boolean constructDataFromJson(JSONObject js){
         try{
             location=js.getString("location");
             type=js.getString("type");
             this.date_time=js.getString("date_time");
             this.description=js.getString("description");
             this.photoId=js.getInt("photo_id");
+            this.day=js.getString("day");
             return true;
         }catch(JSONException ex){
             ex.printStackTrace();
@@ -123,10 +147,12 @@ public class TrafficViolation {
             jsonData.put("date_time",this.date_time);
             jsonData.put("description",this.description);
             jsonData.put("photo_id",this.photoId);
+            jsonData.put("day",this.day);
             return jsonData;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 }
