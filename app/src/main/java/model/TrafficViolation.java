@@ -1,8 +1,16 @@
 package model;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -126,12 +134,15 @@ public class TrafficViolation {
 
     public boolean constructDataFromJson(JSONObject js){
         try{
+
             location=js.getString("location");
             type=js.getString("type");
             this.date_time=js.getString("date_time");
             this.description=js.getString("description");
             this.photoId=js.getInt("photo_id");
             this.day=js.getString("day");
+            // image try
+
             return true;
         }catch(JSONException ex){
             ex.printStackTrace();
@@ -148,6 +159,26 @@ public class TrafficViolation {
             jsonData.put("description",this.description);
             jsonData.put("photo_id",this.photoId);
             jsonData.put("day",this.day);
+            /*** image
+            File imgPath = new File("");
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(imgPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(fis==null) System.out.println("Why?");
+            Bitmap bm = BitmapFactory.decodeStream(fis);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            if(bm==null){
+                System.out.println("baal naki");
+
+            }
+           bm.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+            String s= Base64.encodeToString(stream.toByteArray(),Base64.NO_WRAP);
+            // image try end
+            jsonData.put("photo",s);
+             *****/
             return jsonData;
         } catch (JSONException e) {
             e.printStackTrace();

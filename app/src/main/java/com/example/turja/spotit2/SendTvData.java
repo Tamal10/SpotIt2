@@ -4,9 +4,17 @@ package com.example.turja.spotit2;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 //import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import model.ApiCall;
 import model.TrafficViolation;
