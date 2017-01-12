@@ -3,4 +3,7 @@
     <string name="reprort">Report an Event</string>
     <string name="search">Search Event</string>
     <string name="view_rank">View Rank List</string>
+    <string name="rank_by_location">Rank By Location</string>
+    <string name="rank_by_Time">Rank By Time</string>
+    <string name="rank_by_Type">Rank By Type</string>
 </resources>

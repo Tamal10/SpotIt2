@@ -30,8 +30,17 @@ public class HomeActivity extends Activity {
     //onClickListener
     public void buttonListner(View view)
     {
-        Intent intent=new Intent(this,ReportEvent.class);
-        startActivity(intent);
+        if(view.getId()==R.id.reportBtn) {
+            Intent intent = new Intent(this, ReportEvent.class);
+            startActivity(intent);
+        }
+        else if(view.getId()==R.id.ranklistBtn){
+            Intent intent = new Intent(this,RankTV.class);
+            startActivity(intent);
+        }
+        else{
+
+        }
     }
 
 
