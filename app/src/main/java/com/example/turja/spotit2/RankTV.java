@@ -1,15 +1,16 @@
 package com.example.turja.spotit2;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import networking.SendRankRequest;
+
 public class RankTV extends Activity {
-    Button rankByLocation,rankByTime,rankByType;
+    Button rankByLocation,rankByTime,rankByType,rankByDay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,11 +18,12 @@ public class RankTV extends Activity {
         rankByLocation=(Button) findViewById(R.id.reportBtn);
         rankByTime=(Button)findViewById(R.id.searchBtn);
         rankByType=(Button)findViewById(R.id.ranklistBtn);
-
+        rankByDay=(Button)findViewById(R.id.rankByDay);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "BOOKOS.TTF");
         rankByLocation.setTypeface(typeface);
         rankByTime.setTypeface(typeface);
         rankByType.setTypeface(typeface);
+        rankByDay.setTypeface(typeface);
     }
     public void buttonListner(View view)
     {

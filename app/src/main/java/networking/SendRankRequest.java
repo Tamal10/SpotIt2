@@ -1,9 +1,10 @@
-package com.example.turja.spotit2;
+package networking;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+
+import com.example.turja.spotit2.ShowRankList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,7 @@ public class SendRankRequest extends AsyncTask<String, Void, String[]> {
         }
 //        System.out.println(locations);
 //        System.out.println(count);
-        Intent intent=new Intent(context,ShowTvList.class);
+        Intent intent=new Intent(context,ShowRankList.class);
         intent.putExtra("key",locations);
         intent.putExtra("count",count);
         intent.putExtra("criteria",s[1]);

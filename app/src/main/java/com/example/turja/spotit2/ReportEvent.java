@@ -2,28 +2,23 @@ package com.example.turja.spotit2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import model.ApiCall;
 import model.TrafficViolation;
+import networking.SendTvData;
 
 public class ReportEvent extends Activity {
     //    private DatabaseReference mDatabase;
@@ -31,8 +26,8 @@ public class ReportEvent extends Activity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     EditText datePicker;
     ImageButton galaryBtn,camBtn;
-    TimePickerFragment newTimeFragment = new TimePickerFragment();
-    DatePickerFragment newDateFragment = new DatePickerFragment();
+    private TimePickerFragment newTimeFragment = new TimePickerFragment();
+    private DatePickerFragment newDateFragment = new DatePickerFragment();
     private Uri selectedImage;
     private Bitmap photo;
     String  picturePath;
@@ -47,6 +42,7 @@ public class ReportEvent extends Activity {
     }
     public void showTimePickerDialog(View v) {
         newTimeFragment.r=this;
+
         newTimeFragment.show(getFragmentManager(), "timePicker");
     }
     public void showDatePickerDialog(View v) {
@@ -68,7 +64,6 @@ public class ReportEvent extends Activity {
         else if(v.getId()==R.id.submit){
             EditText et= (EditText) findViewById(R.id.location);
             String location=et.getText().toString();
-            Log.d("location","location is "+ location);
             et= (EditText) findViewById(R.id.datepicker);
             String date=et.getText().toString();
             et= (EditText) findViewById(R.id.timepicker);
@@ -76,6 +71,10 @@ public class ReportEvent extends Activity {
             et=  (EditText) findViewById(R.id.feedBack);
             String description=et.getText().toString();
 //            mDatabase = FirebaseDatabase.getInstance().getReference();
+            if(location.equals("")  && date.equals("") && time.equals("") ){
+                Toast.makeText(this, "Please enter location,date and time", Toast.LENGTH_LONG).show();
+                return;
+            }
             TrafficViolation tv= new TrafficViolation();
             tv.setLocation(location);
             tv.setDate_time(date,time);
@@ -85,7 +84,6 @@ public class ReportEvent extends Activity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.JPEG, 70, stream);
             tv.setPhoto(Base64.encodeToString(stream.toByteArray(),Base64.NO_WRAP));
-            System.out.println("wtf");
 //            mDatabase.child("tv").child("1").setValue(tv);
 //            ApiCall api=new ApiCall();
 //            api.setGetRelativeUrl("submit");

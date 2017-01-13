@@ -28,8 +28,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RankTV" />
-        <activity android:name=".ShowTvList" />
-        <activity android:name=".SearchEvent"></activity>
+        <activity android:name=".ShowRankList" />
+        <activity android:name=".SearchEvent" />
+        <activity
+            android:name=".TvListActivity"
+            android:label="@string/title_activity_tv_list" />
+        <activity android:name=".ViolationDetailsActivity"></activity>
     </application>
 
 </manifest>

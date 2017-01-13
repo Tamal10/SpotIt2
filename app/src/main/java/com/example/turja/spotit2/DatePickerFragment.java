@@ -20,7 +20,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public Date pickedDate;
     final Calendar c = Calendar.getInstance();
     ReportEvent r;
-
+    SearchEvent s;
 
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void updateDate(){
-
-        EditText et= (EditText) r.findViewById(R.id.datepicker);
+        EditText et=null;
+        if(r!=null)
+            et= (EditText) r.findViewById(R.id.datepicker);
+        else if(s!=null) et= (EditText) s.findViewById(R.id.datepicker);
         String myFormat="dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         et.setText(sdf.format(c.getTime()));

@@ -18,6 +18,8 @@ import java.util.Locale;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
     ReportEvent r;
+    SearchEvent s;
+    int start=0;
     final Calendar c = Calendar.getInstance();
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
@@ -34,8 +36,14 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         c.set(Calendar.HOUR_OF_DAY,hourOfDay);
         c.set(Calendar.MINUTE,minute);
-
-        EditText et= (EditText) r.findViewById(R.id.timepicker);
+        EditText et=null;
+        if(r!=null)
+            et= (EditText) r.findViewById(R.id.timepicker);
+        else if(s!=null) {
+            if(start==1)
+                et= (EditText) s.findViewById(R.id.timepicker);
+            else et= (EditText) s.findViewById(R.id.endtimepicker);
+        }
         String myFormat="hh:mm a";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         String  formated_time = sdf.format(c.getTime());

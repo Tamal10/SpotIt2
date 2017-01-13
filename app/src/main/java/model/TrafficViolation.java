@@ -26,8 +26,11 @@ public class TrafficViolation {
     private String location;
     private String date_time;
     private String day;
+    private String date_time_end;
     private String photo;
     private String[] dayMap={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+
+
     public TrafficViolation(int id, String type, String description, int photoId) {
         this.id = id;
         this.type = type;
@@ -77,6 +80,14 @@ public class TrafficViolation {
 
     public String getDay() {
         return day;
+    }
+
+    public String getDate_time_end() {
+        return date_time_end;
+    }
+
+    public void setDate_time_end(String date_time_end) {
+        this.date_time_end = date_time_end;
     }
 
     public void setId(int id) {
@@ -141,6 +152,52 @@ public class TrafficViolation {
         date_time = sdf.format(c.getTime());
     }
 
+    public void setDate_time(String date, String time, int which){
+//        photoId=0;// using  photoid to handle no date or no time case :/
+        if(date.equals("") && time.equals("")){
+            date_time="";date_time_end="";return;
+        }
+        Calendar c= Calendar.getInstance();
+        if(!date.equals("")){
+            int month=Integer.parseInt(date.substring(3, 5))-1;
+            c.set(Integer.parseInt(date.substring(6)),month , Integer.parseInt(date.substring(0, 2)));
+        }
+
+        if(!time.equals("")){
+            int hour=Integer.parseInt(time.substring(0,2))%12;
+            if(time.charAt(6)=='p') hour+=12; // :/ :/ :/
+            int min=Integer.parseInt(time.substring(3,5));
+            c.set(Calendar.HOUR_OF_DAY,hour);
+//            System.out.println(hour+" AND "+Calendar.HOUR);
+            c.set(Calendar.MINUTE, min);
+        }
+
+        int weekDay=c.get(Calendar.DAY_OF_WEEK);
+
+//        System.out.println(c.getTime());
+        switch(weekDay){
+            case Calendar.SATURDAY:
+                day="Saturday";break;
+            case Calendar.SUNDAY:
+                day="Sunday";break;
+            case Calendar.WEDNESDAY:
+                day="Wednesday";break;
+            case Calendar.FRIDAY:
+                day="Friday";break;
+            case Calendar.MONDAY:
+                day="Monday";break;
+            case Calendar.TUESDAY:
+                day="Tuesday";break;
+            case Calendar.THURSDAY:
+                day="Thursday";break;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+        if(which==1)
+            date_time = sdf.format(c.getTime());
+        else
+            date_time_end = sdf.format(c.getTime());
+    }
+
     public boolean constructDataFromJson(JSONObject js){
         try{
 
@@ -195,5 +252,20 @@ public class TrafficViolation {
         }
         return null;
     }
+    public JSONObject constructJsonForSearch(){
+        JSONObject jsonData= new JSONObject();
+        try {
+            jsonData.put("location", this.location);
+            jsonData.put("type", this.type);
+            jsonData.put("start", this.date_time);
+            jsonData.put("end",this.date_time_end);
+            jsonData.put("dayTime",this.photoId);
+            return jsonData;
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
+
 
 }

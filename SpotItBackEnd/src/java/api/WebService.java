@@ -102,6 +102,28 @@ public class WebService {
         return js.getJSONArray(0).toString();
     }
     
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("search")
+    public String search(String content) {
+        JSONArray js = new JSONArray();
+        if(content!=null){
+            JSONObject jsonTv = new JSONObject(content);
+            String location=jsonTv.getString("location");
+            String start=jsonTv.getString("start");
+            String end=jsonTv.getString("end");
+            String type=jsonTv.getString("type");
+            int dayTime=jsonTv.getInt("dayTime");
+            DBConnector db=new DBConnector();
+            ArrayList<TrafficViolation> ar=db.search(location, start, end, type, dayTime);
+            js.put(ar);
+            System.out.println(js.getJSONArray(0).toString());
+            return js.getJSONArray(0).toString();
+        }
+        return null;
+    }
+    
     
     @POST
     @Consumes("application/json")

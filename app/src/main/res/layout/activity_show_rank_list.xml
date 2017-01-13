@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.turja.spotit2.ShowTvList">
+    tools:context="com.example.turja.spotit2.ShowRankList">
     <include
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home">
@@ -33,14 +33,19 @@
         android:layout_marginTop="20dp">
 
         <ListView
-            android:layout_width="254dp"
+            android:layout_width="match_parent"
             android:id="@+id/key"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"/>
 
         <ListView
             android:layout_width="match_parent"
             android:id="@+id/count"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:listSelector="@android:color/transparent"/>
     </LinearLayout>
 
 </RelativeLayout>

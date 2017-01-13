@@ -185,5 +185,49 @@ public class DBConnector {
         return lr;
     }
     
+    public ArrayList search(String location, String start, String end, String type, int dayTime){
+        ArrayList<TrafficViolation> ar=new ArrayList<>();
+        try {
+            getConnection();
+            stmt=conn.createStatement();
+            String sql="select id,location,type,date_time,description from traffic_violation where ";
+            System.out.println("daytime "+dayTime);
+            if(location!=null && !location.equals("")){
+                sql+=String.format("location = '%s' ", location);
+            }
+            if(type!=null && !type.equals("")){
+                if(sql.endsWith("\' ")) sql+="and ";
+                sql+=String.format("type = '%s' ", type);
+            }
+            // 0--> all  1--> none 2-->only time 3-->only date
+            if(dayTime==3 || dayTime==0){
+                if(sql.endsWith("\' ")) sql+="and ";
+                sql+=String.format("date(date_time) = date('%s') ", start);
+            }
+            
+            if(dayTime==2 || dayTime==0){
+                if(sql.endsWith("\' ") || sql.endsWith(") ")) sql+="and ";
+                sql+=String.format("time(date_time) between time('%s') and time('%s')", start,end);
+            }
+            
+            if(sql.endsWith("where ")) sql+="1";
+            sql+=" order by date_time desc limit 10";
+            System.out.println(sql);
+            ResultSet rs= stmt.executeQuery(sql);
+            while(rs.next()){
+                TrafficViolation tv=new TrafficViolation(rs.getInt("id"), rs.getString("type"), rs.getString("description"), 0);
+                tv.setDate_time(rs.getString("date_time"));
+                tv.setLocation(rs.getString("location"));
+//                tv.setDescription(rs.getString("description"));
+                ar.add(tv);
+            }
+            
+            closeConnection();
+            return ar;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
 }

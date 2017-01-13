@@ -1,4 +1,4 @@
-package com.example.turja.spotit2;
+package networking;
 
 
 import android.content.Context;
