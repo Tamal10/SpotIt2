@@ -39,7 +39,8 @@ public class HomeActivity extends Activity {
             startActivity(intent);
         }
         else{
-
+            Intent intent = new Intent(this,SearchEvent.class);
+            startActivity(intent);
         }
     }
 

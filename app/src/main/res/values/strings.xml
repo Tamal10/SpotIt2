@@ -7,4 +7,6 @@
     <string name="rank_by_Time">Rank By Time</string>
     <string name="rank_by_Type">Rank By Type</string>
     <string name="rank_by_Day">Rank By Day</string>
+    <string name="rank">Ranking</string>
+
 </resources>

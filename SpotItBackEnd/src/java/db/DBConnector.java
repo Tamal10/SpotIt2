@@ -88,20 +88,20 @@ public class DBConnector {
         db.insertTrafficViolation(tv);
     }
     
-    public boolean insertTrafficViolation(TrafficViolation tv){
+    public int insertTrafficViolation(TrafficViolation tv){
         try {
             getConnection();
             stmt=conn.createStatement();
             String sql=String.format("insert into traffic_violation (location,date_time,photo_id,type,description,day) values ('%s','%s',%d,'%s','%s','%s')",tv.getLocation(),
             tv.getDate_time(),tv.getPhotoId(),tv.getType(),tv.getDescription(),tv.getDay());
             System.out.println(sql);
-            stmt.executeUpdate(sql);
+            int key=stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
             closeConnection();
-            return true;
+            return key;
         } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
     
     public ArrayList searchRankByLocation(){

@@ -39,7 +39,7 @@ public class WebService {
 
     @Context
     private UriInfo context;
-
+    private String imageFolder="E:\\Masters\\HDDM\\SpotItImages";
     /**
      * Creates a new instance of WebService
      */
@@ -112,17 +112,18 @@ public class WebService {
             JSONObject jsonTv = new JSONObject(content);
             TrafficViolation tv= new TrafficViolation();
             System.out.println(content);
-            /** image save
-            String photo=jsonTv.getString("photo");
-            System.out.println("photo:?:? "+photo);
-            byte[] data = Base64.decode(photo);
-            OutputStream stream = new FileOutputStream("E:\\Masters\\ashce.jpg");
-            stream.write(data);
-            stream.flush();stream.close();
-            * **/
+            
+            
+            
             if(tv.constructDataFromJson(jsonTv)){
                 DBConnector db= new DBConnector();
-                if(db.insertTrafficViolation(tv)){
+                int nRow=db.insertTrafficViolation(tv);
+                if(nRow!=-1){
+                    String photo=jsonTv.getString("photo");
+                    byte[] data = Base64.decode(photo);
+                    OutputStream stream = new FileOutputStream(imageFolder+"\\"+nRow+".jpg");
+                    stream.write(data);
+                    stream.flush();stream.close();
                     String Response=new Response("100", "Success").createJSONObject().toString();
                     return Response;
                 }

@@ -26,12 +26,21 @@ public class TrafficViolation {
     private String location;
     private String date_time;
     private String day;
+    private String photo;
     private String[] dayMap={"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
     public TrafficViolation(int id, String type, String description, int photoId) {
         this.id = id;
         this.type = type;
         this.description = description;
         this.photoId = photoId;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public TrafficViolation() {
@@ -159,6 +168,7 @@ public class TrafficViolation {
             jsonData.put("description",this.description);
             jsonData.put("photo_id",this.photoId);
             jsonData.put("day",this.day);
+            jsonData.put("photo",this.photo);
             /*** image
             File imgPath = new File("");
             FileInputStream fis = null;
