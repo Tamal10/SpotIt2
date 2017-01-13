@@ -96,6 +96,11 @@ public class DBConnector {
             tv.getDate_time(),tv.getPhotoId(),tv.getType(),tv.getDescription(),tv.getDay());
             System.out.println(sql);
             int key=stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                key=rs.getInt(1);
+            }
+            rs.close();
             closeConnection();
             return key;
         } catch (SQLException ex) {
