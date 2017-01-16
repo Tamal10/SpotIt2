@@ -11,38 +11,48 @@
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home">
     </include>
-    <LinearLayout
+    <!--<LinearLayout-->
 
-        android:orientation="horizontal"
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@id/toolbar_home"-->
+        <!--android:layout_marginTop="110dp"-->
+        <!--android:weightSum="1"-->
+        <!--android:id="@+id/vio_details">-->
+
+        <!--<ListView-->
+            <!--android:id="@+id/key"-->
+            <!--android:layout_width="162dp"-->
+            <!--android:layout_height="339dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:listSelector="@android:color/transparent"/>-->
+
+        <!--<ListView-->
+            <!--android:id="@+id/value"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="316dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:listSelector="@android:color/transparent"/>-->
+
+
+
+    <!--</LinearLayout>-->
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_home"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar_home"
-        android:layout_marginTop="110dp"
-        android:weightSum="1"
+        android:layout_marginTop="100dp"
         android:id="@+id/vio_details">
-
-        <ListView
-            android:id="@+id/key"
-            android:layout_width="162dp"
-            android:layout_height="339dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:listSelector="@android:color/transparent"/>
-
-        <ListView
-            android:id="@+id/value"
-            android:layout_width="match_parent"
-            android:layout_height="316dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:listSelector="@android:color/transparent"/>
-    </LinearLayout>
-
+    </TableLayout>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,4 +62,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/vio_details"
         android:layout_marginBottom="50dp" />
+
+
 </RelativeLayout>

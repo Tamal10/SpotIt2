@@ -11,46 +11,53 @@
         layout="@layout/toolbar_home">
     </include>
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <!--<LinearLayout-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@id/toolbar_home"-->
+        <!--android:layout_marginTop="110dp"-->
+        <!--android:weightSum="1">-->
+        <!--<ListView-->
+            <!--android:id="@+id/tim"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_weight="0.25"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:listSelector="@android:color/transparent"/>-->
+        <!--<ListView-->
+            <!--android:id="@+id/loc"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_weight="0.4"-->
+            <!--android:focusable="false"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:listSelector="@android:color/transparent"/>-->
+
+        <!--<ListView-->
+            <!--android:id="@+id/typ"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_weight="0.35"-->
+            <!--/>-->
+
+    <!--</LinearLayout>-->
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_home"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar_home"
-        android:layout_marginTop="110dp"
-        android:weightSum="1">
-        <ListView
-            android:id="@+id/tim"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="0.25"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:listSelector="@android:color/transparent"/>
-        <ListView
-            android:id="@+id/loc"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="0.4"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:listSelector="@android:color/transparent"/>
-
-        <ListView
-            android:id="@+id/typ"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="0.35"
-            />
-
-    </LinearLayout>
-
+        android:layout_marginTop="120dp"
+        android:id="@+id/tv_list">
+    </TableLayout>
 
 
 </RelativeLayout>
