@@ -26,7 +26,8 @@ public class ApiCall {
     }
 
     public ApiCall() {
-        this.url="http://10.0.2.2:8080/SpotItBackEnd/webresources/service/";
+//        this.url="http://10.0.2.2:8080/SpotItBackEnd/webresources/service/";
+        this.url="http://172.20.30.112:8080/SpotItBackEnd/webresources/service/";
     }
 
     public void setGetRelativeUrl(String getRelativeUrl) {

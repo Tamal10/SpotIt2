@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_report_event"
     android:layout_width="match_parent"
@@ -52,6 +53,19 @@
         android:layout_below="@+id/timepicker"
 
         android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/violation_type"
+        android:layout_height="wrap_content"
+        android:hint="Type"
+        android:inputType="text"
+        android:layout_width="fill_parent"
+        android:textColorHint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/datepicker"
+        android:layout_alignParentStart="true">
+    </EditText>
 
     <EditText
         android:id="@+id/feedBack"
@@ -64,11 +78,10 @@
         android:backgroundTint="@color/colorPrimary"
         android:textAlignment="viewStart"
         android:layout_marginTop="23dp"
-        android:layout_below="@+id/datepicker"
 
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/violation_type"
+        android:layout_alignParentStart="true">
     </EditText>
-
 
     <ImageButton
         android:id="@+id/upload"
@@ -112,7 +125,19 @@
         android:id="@+id/submit"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
         android:onClick="btnListener" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/background2"
+        android:id="@+id/reportImage"
+        android:layout_below="@+id/feedBack"
+        android:layout_alignParentLeft="true"
+        android:layout_toStartOf="@+id/textView2"
+        />
+
 
 </RelativeLayout>

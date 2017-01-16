@@ -9,10 +9,16 @@ package api;
 import com.sun.xml.wss.impl.misc.Base64;
 import db.DBConnector;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -123,6 +129,36 @@ public class WebService {
         }
         return null;
     }
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("getphoto")
+    public String getPhoto(String content) {
+        InputStream stream=null;
+        try {
+            JSONObject json=new JSONObject(content);
+            int id=json.getInt("id");
+            stream = new FileInputStream(imageFolder+"\\"+id+".jpg");
+            byte[] data=new byte[(int)new File(imageFolder+"\\"+id+".jpg").length()];
+            stream.read(data);
+            String encoded= Base64.encode(data);
+            json.put("photo", encoded);
+            return json.toString();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WebService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebService.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(WebService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
     
     
     @POST

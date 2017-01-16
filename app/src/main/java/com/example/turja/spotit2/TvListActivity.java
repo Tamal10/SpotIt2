@@ -11,17 +11,22 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import networking.SendPhotoRequest;
 import networking.SendSearchRequest;
 
 public class TvListActivity extends Activity {
     ArrayAdapter location,type,dayTime,description;
+    ArrayList<Integer> ids;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_list);
         Bundle bundle = getIntent().getExtras();
-        ArrayList<Integer>id=bundle.getIntegerArrayList("id");
-        if(id.isEmpty()){
+        ids=bundle.getIntegerArrayList("id");
+
+
+
+        if(ids.isEmpty()){
             Toast.makeText(this, "Nothing found", Toast.LENGTH_LONG).show();
         }else {
 //            String[] item=new String[id.size()];
@@ -50,13 +55,20 @@ public class TvListActivity extends Activity {
                                         int position, long id) {
 //                    String s= (String) lv3.getItemAtPosition(position);
                     ArrayList<String> toPass=new ArrayList<String>();
+
+
+
+                    toPass.add(Integer.toString(ids.get(position)));
                     toPass.add((String) type.getItem(position));
                     toPass.add((String) location.getItem(position));
                     toPass.add((String) dayTime.getItem(position));
                     toPass.add((String) description.getItem(position));
-                    Intent intent=new Intent(view.getContext(),ViolationDetailsActivity.class);
-                    intent.putExtra("values",toPass);
-                    startActivity(intent);
+
+                    new SendPhotoRequest(view.getContext()).execute(toPass);
+
+//                    Intent intent=new Intent(view.getContext(),ViolationDetailsActivity.class);
+//                    intent.putExtra("values",toPass);
+//                    startActivity(intent);
                 }
             });
         }

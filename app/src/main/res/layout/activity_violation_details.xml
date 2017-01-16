@@ -12,6 +12,7 @@
         layout="@layout/toolbar_home">
     </include>
     <LinearLayout
+
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
         android:layout_below="@id/toolbar_home"
         android:layout_marginTop="110dp"
         android:weightSum="1"
-        android:id="@+id/linearLayout2">
+        android:id="@+id/vio_details">
 
         <ListView
             android:id="@+id/key"
@@ -49,5 +50,6 @@
         android:id="@+id/imageView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp" />
+        android:layout_below="@id/vio_details"
+        android:layout_marginBottom="50dp" />
 </RelativeLayout>

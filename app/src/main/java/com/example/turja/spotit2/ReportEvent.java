@@ -3,6 +3,7 @@ package com.example.turja.spotit2;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,6 +11,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
@@ -70,16 +72,22 @@ public class ReportEvent extends Activity {
             String time=et.getText().toString();
             et=  (EditText) findViewById(R.id.feedBack);
             String description=et.getText().toString();
+            et=  (EditText) findViewById(R.id.violation_type);
+            String type=et.getText().toString();
 //            mDatabase = FirebaseDatabase.getInstance().getReference();
-            if(location.equals("")  && date.equals("") && time.equals("") ){
+            if(location.equals("")  && date.equals("") && time.equals("") && type.equals("") ){
                 Toast.makeText(this, "Please enter location,date and time", Toast.LENGTH_LONG).show();
+                return;
+            }
+            else if(photo==null){
+                Toast.makeText(this, "Please upload a photo", Toast.LENGTH_LONG).show();
                 return;
             }
             TrafficViolation tv= new TrafficViolation();
             tv.setLocation(location);
             tv.setDate_time(date,time);
             tv.setDescription(description);
-            tv.setType("Signal Break");
+            tv.setType(type);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.JPEG, 70, stream);
@@ -116,6 +124,8 @@ public class ReportEvent extends Activity {
                 case REQUEST_IMAGE_CAPTURE:
                     selectedImage = data.getData();
                     photo = (Bitmap) data.getExtras().get("data");
+                    ImageView iv= (ImageView) findViewById(R.id.reportImage);
+                    iv.setImageBitmap(photo);
                     break;
                 case REQUEST_SELECT_IMAGE:
                     if(data!=null && data.getData()!=null)
@@ -124,12 +134,13 @@ public class ReportEvent extends Activity {
 
                         try {
                             photo = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                            iv= (ImageView) findViewById(R.id.reportImage);
+                            iv.setImageBitmap(photo);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                     break;
-
             }
         }
     }
