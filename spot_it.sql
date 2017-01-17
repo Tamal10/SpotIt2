@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2017 at 04:00 PM
+-- Generation Time: Jan 17, 2017 at 12:22 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `traffic_violation` (
   `photo_id` int(11) NOT NULL,
   `type` varchar(50) CHARACTER SET utf8 NOT NULL,
   `description` varchar(150) CHARACTER SET utf8 DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf32;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf32;
 
 --
 -- Dumping data for table `traffic_violation`
@@ -74,7 +74,35 @@ INSERT INTO `traffic_violation` (`id`, `location`, `date_time`, `day`, `photo_id
 (35, 'Polashi', '2017-01-03 03:02:00', 'Tuesday', 0, 'Signal Break', 'sadasdad'),
 (36, 'Polashi', '2017-01-06 03:02:00', 'Friday', 0, 'Signal Break', 'sadasdad'),
 (37, 'g', '2017-01-12 03:24:00', 'Thursday', 0, 'Signal Break', 'g'),
-(38, 'g', '2017-01-12 03:24:00', 'Thursday', 0, 'Signal Break', 'g');
+(38, 'g', '2017-01-12 03:24:00', 'Thursday', 0, 'Signal Break', 'g'),
+(39, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(40, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(41, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(42, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(43, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(44, 'f', '2017-01-13 06:22:00', 'Friday', 0, 'Signal Break', 'hghf'),
+(48, 'Farmgate', '2017-01-17 04:39:00', 'Tuesday', 0, 'Drunk Driver', 'Jami Sami');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `violation_type`
+--
+
+CREATE TABLE IF NOT EXISTS `violation_type` (
+`id` int(11) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `violation_type`
+--
+
+INSERT INTO `violation_type` (`id`, `name`) VALUES
+(1, 'Signal Violation'),
+(2, 'OverSpeed'),
+(3, 'Vehicle in Footpath'),
+(4, 'Drunk Driver');
 
 --
 -- Indexes for dumped tables
@@ -87,6 +115,12 @@ ALTER TABLE `traffic_violation`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `violation_type`
+--
+ALTER TABLE `violation_type`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -94,7 +128,12 @@ ALTER TABLE `traffic_violation`
 -- AUTO_INCREMENT for table `traffic_violation`
 --
 ALTER TABLE `traffic_violation`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT for table `violation_type`
+--
+ALTER TABLE `violation_type`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
