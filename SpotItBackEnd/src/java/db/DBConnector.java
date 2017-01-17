@@ -101,6 +101,16 @@ public class DBConnector {
                 key=rs.getInt(1);
             }
             rs.close();
+            
+            
+            sql=String.format("select id from violation_type where name='%s'",tv.getType());
+            rs=stmt.executeQuery(sql);
+            if(!rs.next()){
+                sql=String.format("insert into violation_type (name) values ('%s')",tv.getType());
+                stmt.executeUpdate(sql);
+            }   
+            rs.close();
+            
             closeConnection();
             return key;
         } catch (SQLException ex) {

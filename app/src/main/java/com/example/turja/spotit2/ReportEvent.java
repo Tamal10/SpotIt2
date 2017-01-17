@@ -84,7 +84,7 @@ public class ReportEvent extends Activity {
             String description=et.getText().toString();
 //            et=  (EditText) findViewById(R.id.violation_type);
             AutoCompleteTextView atv= (AutoCompleteTextView) findViewById(R.id.violation_type);
-            String type=et.getText().toString();
+            String type=atv.getText().toString();
 //            mDatabase = FirebaseDatabase.getInstance().getReference();
             if(location.equals("")  && date.equals("") && time.equals("") && type.equals("") ){
                 Toast.makeText(this, "Please enter location,date and time", Toast.LENGTH_LONG).show();
