@@ -60,10 +60,10 @@ public class ApiCall {
     }
 
     public String httpGet(){
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpGet httpGet = new HttpGet(url+relativeUrl);
         String response=null;
         try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(url+relativeUrl);
             HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity httpEntity = (httpResponse == null) ? null : httpResponse.getEntity();
             response= EntityUtils.toString(httpEntity,"UTF-8");
@@ -75,5 +75,9 @@ public class ApiCall {
         return response;
     }
 
-
+    public static void main(String[] args) {
+        ApiCall api=new ApiCall();
+        api.setGetRelativeUrl("");
+        api.httpPost("","");
+    }
 }

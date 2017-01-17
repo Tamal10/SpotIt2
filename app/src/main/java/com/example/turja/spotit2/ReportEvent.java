@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import model.TrafficViolation;
 import networking.SendTvData;
@@ -35,12 +38,19 @@ public class ReportEvent extends Activity {
     String  picturePath;
     private boolean fileUri;
 
+    private String []violations={"Signal Break","Motorbike in Footpath","Street Crossing","Speed Break"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_event);
         galaryBtn=(ImageButton)findViewById(R.id.upload);
         datePicker=(EditText)findViewById(R.id.datepicker);
+        Bundle bundle = getIntent().getExtras();
+        ArrayList<String> vs=bundle.getStringArrayList("values");
+        AutoCompleteTextView av= (AutoCompleteTextView) findViewById(R.id.violation_type);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, vs);
+        av.setAdapter(adapter);
     }
     public void showTimePickerDialog(View v) {
         newTimeFragment.r=this;
@@ -72,7 +82,8 @@ public class ReportEvent extends Activity {
             String time=et.getText().toString();
             et=  (EditText) findViewById(R.id.feedBack);
             String description=et.getText().toString();
-            et=  (EditText) findViewById(R.id.violation_type);
+//            et=  (EditText) findViewById(R.id.violation_type);
+            AutoCompleteTextView atv= (AutoCompleteTextView) findViewById(R.id.violation_type);
             String type=et.getText().toString();
 //            mDatabase = FirebaseDatabase.getInstance().getReference();
             if(location.equals("")  && date.equals("") && time.equals("") && type.equals("") ){

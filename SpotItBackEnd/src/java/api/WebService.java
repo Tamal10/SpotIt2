@@ -56,11 +56,17 @@ public class WebService {
      * Retrieves representation of an instance of api.WebService
      * @return an instance of java.lang.String
      */
-    @GET
+    @POST
+    @Consumes("application/json")
     @Produces("application/json")
-    public String getJson() {
+    public String getTypes(String content) {
         //TODO return proper representation object
-        return new Response("505", "Failed").createJSONObject().toString();
+        DBConnector db=new DBConnector();
+        ArrayList<String> types=db.searchAllTypes();
+        JSONArray js = new JSONArray();
+        js.put(types);
+        
+        return js.getJSONArray(0).toString();
     }
 
     /**

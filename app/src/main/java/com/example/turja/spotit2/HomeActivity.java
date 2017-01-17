@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import networking.SendTypesRequest;
+
 public class HomeActivity extends Activity {
     Button newReport,searchBtn,rankBtn;
     @Override
@@ -31,8 +34,9 @@ public class HomeActivity extends Activity {
     public void buttonListner(View view)
     {
         if(view.getId()==R.id.reportBtn) {
-            Intent intent = new Intent(this, ReportEvent.class);
-            startActivity(intent);
+            new SendTypesRequest(this).execute();
+//            Intent intent = new Intent(this, ReportEvent.class);
+//            startActivity(intent);
         }
         else if(view.getId()==R.id.ranklistBtn){
             Intent intent = new Intent(this,RankTV.class);

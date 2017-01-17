@@ -185,6 +185,25 @@ public class DBConnector {
         return lr;
     }
     
+    
+    public ArrayList searchAllTypes(){
+        ArrayList<String> lr= new ArrayList<>();
+        try {
+            getConnection();
+            stmt=conn.createStatement();
+            String sql="select name from violation_type";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                lr.add(rs.getString("name"));
+            }
+            closeConnection();
+//            return lr;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lr;
+    }
+    
     public ArrayList search(String location, String start, String end, String type, int dayTime){
         ArrayList<TrafficViolation> ar=new ArrayList<>();
         try {

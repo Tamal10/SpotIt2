@@ -118,6 +118,7 @@ public class TvListActivity extends Activity {
                 tr_head.setPadding(5, 0, 0, 5);
                 tr_head.setTag(i);
                 tr_head.setFocusable(true);
+                tr_head.setFocusableInTouchMode(true);
                 tr_head.setClickable(true);
                 if(i%2==0){
                     tr_head.setBackgroundColor(Color.GRAY);

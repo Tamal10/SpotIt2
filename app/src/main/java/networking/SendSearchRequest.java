@@ -83,7 +83,7 @@ public class SendSearchRequest extends AsyncTask<String,Void,String> {
         intent.putExtra("dateTime",dateTime);
         intent.putExtra("description",description);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        System.out.println(locations);
+
         context.startActivity(intent);
 
     }
