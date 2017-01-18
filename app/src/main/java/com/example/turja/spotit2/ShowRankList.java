@@ -3,8 +3,10 @@ package com.example.turja.spotit2;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import networking.SearchDay;
 import networking.SendPhotoRequest;
 import networking.SendSearchRequest;
 
@@ -87,29 +90,36 @@ public class ShowRankList extends Activity {
         TableLayout t1 = null;
 
         TableLayout tl = (TableLayout) findViewById(R.id.tv_list);
+
         TableRow thead=new TableRow(this);
         thead.setPadding(5,0,0,5);
 
         TextView col1 = new TextView(this);
         col1.setId(View.generateViewId());
         col1.setText(list[0]);
-        col1.setTextSize(18);
+        col1.setTextSize(22);
         col1.setPadding(10,10,10,10);
-
+        col1.setTypeface(null, Typeface.BOLD);
+//        col1.setMinimumWidth(100);
+//        col1.setMinWidth(50);
+        col1.setWidth(100);
         col1.setTextColor(Color.BLUE);
+
         thead.addView(col1);
 
         TextView col2 = new TextView(this);
         col2.setId(View.generateViewId());
         col2.setText(countList[0]);
-        col2.setTextSize(18);
+        col2.setTextSize(22);
         col2.setPadding(15,10,10,10);
         col2.setTextColor(Color.BLUE);
+        col2.setTypeface(null, Typeface.BOLD);
+        col2.setGravity(Gravity.CENTER);
         thead.addView(col2);
 
         tl.addView(thead, new TableLayout.LayoutParams(
-                LinearLayoutCompat.LayoutParams.FILL_PARENT,
-                LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
+                TableRow.LayoutParams.FILL_PARENT,
+                TableRow.LayoutParams.WRAP_CONTENT,1f));
 
         for(int i=1;i<list.length;i++) {
             TableRow tr_head = new TableRow(this);
@@ -118,7 +128,7 @@ public class ShowRankList extends Activity {
             tr_head.setFocusable(true);
             tr_head.setFocusableInTouchMode(true);
             tr_head.setClickable(true);
-            if(i%2==0){
+            if(i%2==1){
                 tr_head.setBackgroundColor(Color.GRAY);
             }
 
@@ -126,23 +136,27 @@ public class ShowRankList extends Activity {
             TextView date = new TextView(this);
             date.setId(View.generateViewId());
             date.setText(list[i]);
-            date.setTextSize(18);
+            date.setTextSize(22);
             date.setPadding(10,10,10,10);
             date.setTextColor(Color.BLACK);
+//            date.setMinimumWidth(100);
+
+            date.setWidth(100);
             tr_head.addView(date);
 
 
             TextView loc = new TextView(this);
             loc.setId(View.generateViewId());
             loc.setText(countList[i]);
-            loc.setTextSize(18);
+            loc.setTextSize(22);
             loc.setPadding(15,10,10,10);
             loc.setTextColor(Color.BLACK);
+            loc.setGravity(Gravity.CENTER);
             tr_head.addView(loc);
 
             tl.addView(tr_head, new TableLayout.LayoutParams(
-                    LinearLayoutCompat.LayoutParams.FILL_PARENT,
-                    LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
+                    TableRow.LayoutParams.FILL_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT,1f));
 
             tr_head.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -151,18 +165,42 @@ public class ShowRankList extends Activity {
                                                int position= (int) view.getTag();
 //                           Toast toast = Toast.makeText(getApplicationContext(), "Tabele row clicked "+ tag , Toast.LENGTH_LONG);
 //                           toast.show();
-                                                switch (position){
-                                                    case 1:
+                                                if(list[0].equals("Location"))
                                                         new SendSearchRequest(getApplicationContext()).execute(list[position], "", "", "", "");
-                                                        break;
-                                                    case 2:
-                                                        break;
-                                                    case 3:
+
+                                                else if(list[0].equals("Day"))
+                                                        new SearchDay(getApplicationContext()).execute(list[position]);
+                                                else if(list[0].equals("Violation Type"))
                                                         new SendSearchRequest(getApplicationContext()).execute("", "", "", "", list[position]);
-                                                        break;
-                                                    case 4:
-                                                        break;
+
+                                                else if(list[0].equals("Time Range")) {
+                                                    int startTime = Integer.parseInt(list[position].substring(0, list[position].indexOf(":")));
+                                                    int endTime = 0;
+                                                    String ampm;
+                                                    System.out.println("start is " + startTime);
+                                                    if (startTime >= 12) {
+                                                        startTime = startTime % 12;
+                                                        endTime = startTime + 1;
+                                                        if (startTime == 0) startTime = 12;
+                                                        ampm = "pm";
+                                                    } else {
+                                                        endTime = startTime + 1;
+                                                        ampm = "am";
+                                                    }
+                                                    String start, end;
+                                                    if (startTime < 10)
+                                                        start = "0" + Integer.toString(startTime) + ":00 " + ampm;
+                                                    else
+                                                        start = Integer.toString(startTime) + ":00 " + ampm;
+                                                    if (endTime < 10)
+                                                        end = "0" + Integer.toString(endTime) + ":00 " + ampm;
+                                                    else
+                                                        end = Integer.toString(endTime) + ":00 " + ampm;
+
+                                                    System.out.println(start + " " + end);
+                                                    new SendSearchRequest(getApplicationContext()).execute("", "", start, end, "");
                                                 }
+
 
 //                                               new SendPhotoRequest(view.getContext()).execute(toPass);
                                            }
@@ -170,6 +208,6 @@ public class ShowRankList extends Activity {
 
             );
         }
-
+//        t1.setColumnStretchable(0,true);
     }
 }

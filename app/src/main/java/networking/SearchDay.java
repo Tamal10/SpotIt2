@@ -3,7 +3,6 @@ package networking;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 
 import com.example.turja.spotit2.TvListActivity;
 
@@ -14,46 +13,31 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import model.ApiCall;
-import model.TrafficViolation;
 
 /**
- * Created by CSE_BUET on 1/13/2017.
+ * Created by CSE_BUET on 1/18/2017.
  */
 
-public class SendSearchRequest extends AsyncTask<String,Void,String> {
-    private Context context;
+public class SearchDay extends AsyncTask<String,Void,String> {
+        private Context context;
 
-    public SendSearchRequest(Context context) {
+    public SearchDay(Context context) {
         this.context = context;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        TrafficViolation tv = new TrafficViolation();
-        //location,date,startTime,endTime,type
-        // 0--> all  1--> none 2-->only time 3-->only date
-        System.out.println("Loc: "+ strings[0]+" date: "+strings[1]+" start "+strings[2]+" end "+strings[3]+" type "+strings[4]);
-        tv.setPhotoId(0);
-        if ((strings[2].equals("") || strings[2].length()==0)&& (strings[1].equals("") || strings[1].length()==0)) {
-            tv.setPhotoId(1);
+        JSONObject jo=new JSONObject();
+        String response=null;
+        try {
+            jo.put("day",strings[0]);
+            ApiCall api=new ApiCall();
+            api.setGetRelativeUrl("daySearch");
+            response=api.httpPost(jo.toString(),"application/json");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        else if (strings[1].equals("") || strings[1].length()==0){
-            tv.setPhotoId(2);
-        }
-        else if (strings[2].equals("") || strings[2].length()==0){
-            tv.setPhotoId(3);;
-        }
-        System.out.println(tv.getPhotoId()+"lenght: "+strings[2].length());
-        tv.setLocation(strings[0]);
-        tv.setDate_time(strings[1], strings[3], 0);
-        tv.setDate_time(strings[1], strings[2], 1);
-        tv.setType(strings[4]);
-        String searchJson = tv.constructJsonForSearch().toString();
-
-        ApiCall api = new ApiCall();
-        api.setGetRelativeUrl("search");
-        String result = api.httpPost(searchJson, "application/json");
-        return result;
+        return  response;
     }
 
     @Override
@@ -86,6 +70,5 @@ public class SendSearchRequest extends AsyncTask<String,Void,String> {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(intent);
-
     }
 }

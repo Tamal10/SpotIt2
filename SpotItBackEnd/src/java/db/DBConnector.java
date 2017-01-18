@@ -214,6 +214,28 @@ public class DBConnector {
         return lr;
     }
     
+    public ArrayList searchDay(String day){
+        ArrayList<TrafficViolation> lr= new ArrayList<>();
+        try {
+            getConnection();
+            stmt=conn.createStatement();
+            String sql=String.format("select id,location,type,date_time,description from traffic_violation where day='%s'",day);
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                TrafficViolation tv=new TrafficViolation(rs.getInt("id"), rs.getString("type"), rs.getString("description"), 0);
+                tv.setDate_time(rs.getString("date_time"));
+                tv.setLocation(rs.getString("location"));
+//                tv.setDescription(rs.getString("description"));
+                lr.add(tv);
+            }
+            closeConnection();
+//            return lr;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lr;
+    }
+    
     public ArrayList search(String location, String start, String end, String type, int dayTime){
         ArrayList<TrafficViolation> ar=new ArrayList<>();
         try {

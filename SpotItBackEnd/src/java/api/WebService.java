@@ -68,7 +68,21 @@ public class WebService {
         
         return js.getJSONArray(0).toString();
     }
-
+    
+    
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Path("daySearch")
+    public String searchByDay(String content) {
+        //TODO return proper representation object
+        JSONObject jo=new JSONObject(content);
+        DBConnector db=new DBConnector();
+        ArrayList<TrafficViolation> types=db.searchDay(jo.getString("day"));
+        JSONArray js = new JSONArray();
+        js.put(types);  
+        return js.getJSONArray(0).toString();
+    }
     /**
      * PUT method for updating or creating an instance of WebService
      * @param content representation for the resource
