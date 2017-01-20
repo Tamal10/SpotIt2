@@ -51,6 +51,7 @@
         android:layout_below="@+id/toolbar_home"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
+        android:shrinkColumns="1"
         android:id="@+id/vio_details">
     </TableLayout>
     <ImageView

@@ -56,6 +56,7 @@
         android:layout_below="@+id/toolbar_home"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"
+        android:shrinkColumns="2"
         android:id="@+id/tv_list">
     </TableLayout>
 

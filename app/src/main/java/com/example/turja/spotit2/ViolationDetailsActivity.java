@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -41,7 +42,7 @@ public class ViolationDetailsActivity extends Activity {
         TableLayout t1 = null;
 
         TableLayout tl = (TableLayout) findViewById(R.id.vio_details);
-
+        LayoutInflater inflater = getLayoutInflater();
         for(int i=0;i<key.length;i++) {
             TableRow tr_head = new TableRow(this);
             tr_head.setPadding(5,0,0,5);
@@ -68,6 +69,7 @@ public class ViolationDetailsActivity extends Activity {
             tval.setTextSize(24);
             tval.setTextColor(Color.BLACK);
             tval.setPadding(18, 15, 5, 5);
+            tval.setSingleLine(false);
             tr_head.addView(tval);
 
 
