@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Base64;
@@ -15,6 +16,13 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+
+import model.ApiCall;
 
 public class ViolationDetailsActivity extends Activity {
     String []key={"Violation Type","Location","Time","Details"};
@@ -29,7 +37,11 @@ public class ViolationDetailsActivity extends Activity {
         value[1]=bundle.getStringArrayList("values").get(2);
         value[2]=bundle.getStringArrayList("values").get(3);
         value[3]=bundle.getStringArrayList("values").get(4);
-        String photo=bundle.getStringArrayList("values").get(5);
+//        String photo=bundle.getStringArrayList("values").get(5);
+
+
+        new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(bundle.getStringArrayList("values").get(0));
+
 //        ListView lv1= (ListView) findViewById(R.id.key);
 //        ArrayAdapter adapter = new ArrayAdapter<String>(this,
 //                R.layout.search_item, key);
@@ -78,10 +90,50 @@ public class ViolationDetailsActivity extends Activity {
                     LinearLayoutCompat.LayoutParams.WRAP_CONTENT));
         }
 //        t1.setPadding(15,15,15,15);
-        ImageView iv= (ImageView) findViewById(R.id.imageView);
+//        ImageView iv= (ImageView) findViewById(R.id.imageView);
+//
+//        byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
+//        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//        iv.setImageBitmap(decodedByte);
+    }
 
-        byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        iv.setImageBitmap(decodedByte);
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = "http://172.20.30.112:8080/SpotItBackEnd/webresources/service/image"+urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+
+            JSONObject req=new JSONObject();
+            try {
+                req.put("id", Integer.parseInt(urls[0]));
+                ApiCall api = new ApiCall();
+                api.setGetRelativeUrl("getphoto");
+                String photo = api.httpPost(req.toString(), "application/json");
+                JSONObject jo = new JSONObject(photo);
+                photo = jo.getString("photo");
+                byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                return decodedByte;
+            }catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

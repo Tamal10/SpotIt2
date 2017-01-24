@@ -56,11 +56,41 @@ public class WebService {
      * Retrieves representation of an instance of api.WebService
      * @return an instance of java.lang.String
      */
+    
+    @GET
+    @Path("image/{id}")
+    @Produces("application/json")
+    public String getJson( @PathParam("id") String id) {
+        InputStream stream=null;
+        JSONObject json=new JSONObject();
+        try {
+            stream = new FileInputStream(imageFolder+"\\"+id+".jpg");
+            byte[] data=new byte[(int)new File(imageFolder+"\\"+id+".jpg").length()];
+            stream.read(data);
+            String encoded= Base64.encode(data);
+            json.put("photo", encoded);
+            return json.toString();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WebService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WebService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    @GET
+    @Produces("application/json")
+    public String get() {
+        return "{'a':'b'}";
+    }
+    
+    
     @POST
     @Consumes("application/json")
     @Produces("application/json")
     public String getTypes(String content) {
         //TODO return proper representation object
+        System.out.println("....");
         DBConnector db=new DBConnector();
         ArrayList<String> types=db.searchAllTypes();
         JSONArray js = new JSONArray();
@@ -97,7 +127,7 @@ public class WebService {
 //        RequestData rqd= new RequestData();
 //        rqd.constructDataFromJson(jsonObject);
         JSONArray js = new JSONArray();
-        
+        System.out.println("....");
         if(content.contains("Location")){
             DBConnector db= new DBConnector();
             ArrayList<LocationRank> lr=db.searchRankByLocation();

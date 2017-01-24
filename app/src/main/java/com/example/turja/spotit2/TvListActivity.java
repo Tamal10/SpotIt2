@@ -165,7 +165,10 @@ public class TvListActivity extends Activity {
                             toPass.add((String) dayTime.getItem(position));
                             toPass.add((String) description.getItem(position));
 
-                            new SendPhotoRequest(view.getContext()).execute(toPass);
+//                            new SendPhotoRequest(view.getContext()).execute(toPass);
+                           Intent intent=new Intent(getApplicationContext(),ViolationDetailsActivity.class);
+                           intent.putExtra("values",toPass);
+                           startActivity(intent);
                        }
                    }
 

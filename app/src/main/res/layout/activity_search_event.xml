@@ -10,97 +10,108 @@
         android:id="@+id/toolbar_home"
         layout="@layout/toolbar_home">
     </include>
-
-    <TextView
-        android:text="@string/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:id="@+id/textView3"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/textview_type"
-        android:gravity="center_horizontal"
-        android:layout_below="@+id/toolbar_home"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Location"
-        android:ems="10"
-        android:backgroundTint="@color/colorPrimary"
-        android:id="@+id/location"
-        android:textColorHint="@color/colorAccent"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_home">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_marginTop="21dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:id="@+id/datepicker"
-        android:onClick="showDatePickerDialog"
-        android:hint="Date"
-        android:textColorHint="@color/colorAccent"
-        android:layout_below="@+id/location"
-        android:layout_alignParentStart="true" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:layout_below="@+id/datepicker"
-        android:layout_alignParentStart="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginTop="23dp"
-        android:id="@+id/timepicker"
-        android:onClick="showTimePickerDialog"
-        android:hint="Start Time"
-        android:textColorHint="@color/colorAccent"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:layout_below="@+id/timepicker"
-        android:layout_alignParentStart="true"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginTop="23dp"
-        android:id="@+id/endtimepicker"
-        android:onClick="showTimePickerDialog"
-        android:hint="End Time"
-        android:textColorHint="@color/colorAccent"
-        />
 
-    <EditText
-        android:id="@+id/feedBack"
-        android:layout_height="wrap_content"
-        android:hint="Type"
-        android:inputType="textMultiLine"
-        android:lines="1"
-        android:layout_width="fill_parent"
-        android:textColorHint="@color/colorAccent"
-        android:backgroundTint="@color/colorPrimary"
-        android:textAlignment="viewStart"
-        android:layout_marginTop="23dp"
-        android:layout_below="@+id/endtimepicker"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:text="@string/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="105dp"
+            android:id="@+id/textView3"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/textview_type"
+            android:gravity="center_horizontal"
 
-        android:layout_centerHorizontal="true">
-    </EditText>
+            android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="Search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/submit"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/feedBack"
-        android:layout_centerHorizontal="true"
-        android:onClick="btnListener" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Location"
+            android:ems="10"
+            android:backgroundTint="@color/colorPrimary"
+            android:id="@+id/location"
+            android:textColorHint="@color/colorAccent"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="13dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:layout_marginTop="21dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:id="@+id/datepicker"
+            android:onClick="showDatePickerDialog"
+            android:hint="Date"
+            android:textColorHint="@color/colorAccent"
+            android:layout_below="@+id/location"
+            android:layout_alignParentStart="true" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:layout_below="@+id/datepicker"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginTop="23dp"
+            android:id="@+id/timepicker"
+            android:onClick="showTimePickerDialog"
+            android:hint="Start Time"
+            android:textColorHint="@color/colorAccent"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:layout_below="@+id/timepicker"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginTop="23dp"
+            android:id="@+id/endtimepicker"
+            android:onClick="showTimePickerDialog"
+            android:hint="End Time"
+            android:textColorHint="@color/colorAccent"
+            />
+
+        <EditText
+            android:id="@+id/feedBack"
+            android:layout_height="wrap_content"
+            android:hint="Type"
+            android:inputType="textMultiLine"
+            android:lines="1"
+            android:layout_width="fill_parent"
+            android:textColorHint="@color/colorAccent"
+            android:backgroundTint="@color/colorPrimary"
+            android:textAlignment="viewStart"
+            android:layout_marginTop="23dp"
+            android:layout_below="@+id/endtimepicker"
+
+            android:layout_centerHorizontal="true">
+        </EditText>
+
+        <Button
+            android:text="Search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/feedBack"
+            android:layout_centerHorizontal="true"
+            android:onClick="btnListener" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

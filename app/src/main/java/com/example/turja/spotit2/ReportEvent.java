@@ -1,6 +1,7 @@
 package com.example.turja.spotit2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
@@ -15,6 +16,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 //import com.google.firebase.database.DatabaseReference;
 //import com.google.firebase.database.FirebaseDatabase;
 
@@ -52,6 +59,20 @@ public class ReportEvent extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, vs);
         av.setAdapter(adapter);
     }
+
+    public void showMap(View v){
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        Context context = getApplicationContext();
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showTimePickerDialog(View v) {
         newTimeFragment.r=this;
 

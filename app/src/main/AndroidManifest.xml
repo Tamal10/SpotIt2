@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +34,7 @@
         <activity
             android:name=".TvListActivity"
             android:label="@string/title_activity_tv_list" />
-        <activity android:name=".ViolationDetailsActivity"></activity>
+        <activity android:name=".ViolationDetailsActivity" />
     </application>
 
 </manifest>
