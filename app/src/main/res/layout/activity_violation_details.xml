@@ -5,7 +5,6 @@
     android:id="@+id/activity_violation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context="com.example.turja.spotit2.ViolationDetailsActivity">
     <include
         android:id="@+id/toolbar_home"
@@ -42,27 +41,35 @@
             <!--android:focusableInTouchMode="false"-->
             <!--android:listSelector="@android:color/transparent"/>-->
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_home">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <!--</LinearLayout>-->
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_home"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:shrinkColumns="1"
-        android:id="@+id/vio_details">
-    </TableLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/background2"
-        android:id="@+id/imageView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/vio_details"
-        android:layout_marginBottom="50dp" />
-
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:shrinkColumns="1"
+                android:id="@+id/vio_details">
+            </TableLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/background2"
+                android:id="@+id/imageView"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/vio_details" />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

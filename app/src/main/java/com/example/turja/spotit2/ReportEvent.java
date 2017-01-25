@@ -36,6 +36,7 @@ public class ReportEvent extends Activity {
     //    private DatabaseReference mDatabase;
     final int REQUEST_SELECT_IMAGE = 2;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int PLACE_PICKER_REQUEST = 3;
     EditText datePicker;
     ImageButton galaryBtn,camBtn;
     private TimePickerFragment newTimeFragment = new TimePickerFragment();
@@ -61,21 +62,23 @@ public class ReportEvent extends Activity {
     }
 
     public void showMap(View v){
-        int PLACE_PICKER_REQUEST = 1;
+
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         Context context = getApplicationContext();
+        EditText et= (EditText) findViewById(R.id.location);
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
         } catch (GooglePlayServicesRepairableException e) {
             e.printStackTrace();
+//            et.setText("GooglePlayServicesRepairableException");
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
+//            et.setText("GooglePlayServicesNotAvailableException");
         }
     }
 
     public void showTimePickerDialog(View v) {
         newTimeFragment.r=this;
-
         newTimeFragment.show(getFragmentManager(), "timePicker");
     }
     public void showDatePickerDialog(View v) {
@@ -172,6 +175,11 @@ public class ReportEvent extends Activity {
                             e.printStackTrace();
                         }
                     }
+                    break;
+                case PLACE_PICKER_REQUEST:
+                    Place place = PlacePicker.getPlace(this, data);
+                    EditText et= (EditText) findViewById(R.id.location);
+                    et.setText(place.getName());
                     break;
             }
         }

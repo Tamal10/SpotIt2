@@ -1,14 +1,22 @@
 package com.example.turja.spotit2;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import networking.SendSearchRequest;
 
 public class SearchEvent extends Activity {
+    static final int PLACE_PICKER_REQUEST = 3;
     private TimePickerFragment newTimeFragment = new TimePickerFragment();
     private DatePickerFragment newDateFragment = new DatePickerFragment();
     @Override
@@ -26,6 +34,23 @@ public class SearchEvent extends Activity {
         newDateFragment.s=this;
         newDateFragment.show(getFragmentManager(), "datePicker");
     }
+
+    public void showMap(View v){
+
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        Context context = getApplicationContext();
+        EditText et= (EditText) findViewById(R.id.location);
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+//            et.setText("GooglePlayServicesRepairableException");
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+//            et.setText("GooglePlayServicesNotAvailableException");
+        }
+    }
+
     public void btnListener(View v) {
         EditText et= (EditText) findViewById(R.id.location);
         String location=et.getText().toString();
@@ -49,5 +74,17 @@ public class SearchEvent extends Activity {
             return;
         }
         new SendSearchRequest(this).execute(location,date,startTime,endTime,type);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode)
+            {case PLACE_PICKER_REQUEST:
+                Place place = PlacePicker.getPlace(this, data);
+                EditText et= (EditText) findViewById(R.id.location);
+                et.setText(place.getName());
+                break;
+            }
+        }
     }
 }

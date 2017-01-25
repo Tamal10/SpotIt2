@@ -35,6 +35,9 @@
             android:name=".TvListActivity"
             android:label="@string/title_activity_tv_list" />
         <activity android:name=".ViolationDetailsActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBTQkig6NV4aVFgnGlXce0eXpCIt9yPJUs"/>
     </application>
 
 </manifest>

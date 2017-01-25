@@ -79,6 +79,9 @@ public class TvListActivity extends Activity {
 
             TableLayout t1 = null;
 
+            TableRow.LayoutParams tlp = new TableRow.LayoutParams();
+            tlp.width=0;
+
             TableLayout tl = (TableLayout) findViewById(R.id.tv_list);
             TableRow thead=new TableRow(this);
             thead.setPadding(5,0,0,5);
@@ -88,6 +91,7 @@ public class TvListActivity extends Activity {
             col1.setText("Date Time");
             col1.setTextSize(18);
             col1.setPadding(10,10,10,10);
+            col1.setLayoutParams(tlp);
 
             col1.setTextColor(Color.BLUE);
             thead.addView(col1);
@@ -98,6 +102,7 @@ public class TvListActivity extends Activity {
             col2.setTextSize(18);
             col2.setPadding(15,10,10,10);
             col2.setTextColor(Color.BLUE);
+            col2.setLayoutParams(tlp);
             thead.addView(col2);
 
             TextView col3 = new TextView(this);
@@ -106,6 +111,7 @@ public class TvListActivity extends Activity {
             col3.setTextSize(18);
             col3.setPadding(15,10,10,10);
             col3.setTextColor(Color.BLUE);
+            col3.setLayoutParams(tlp);
             thead.addView(col3);
 
             tl.addView(thead, new TableLayout.LayoutParams(
@@ -129,6 +135,7 @@ public class TvListActivity extends Activity {
                 date.setTextSize(18);
                 date.setPadding(10,10,10,10);
                 date.setTextColor(Color.BLACK);
+                date.setLayoutParams(tlp);
                 tr_head.addView(date);
 
                 TextView loc = new TextView(this);
@@ -137,6 +144,7 @@ public class TvListActivity extends Activity {
                 loc.setTextSize(18);
                 loc.setPadding(15,10,10,10);
                 loc.setTextColor(Color.BLACK);
+                loc.setLayoutParams(tlp);
                 tr_head.addView(loc);
 
                 TextView typ = new TextView(this);
@@ -145,6 +153,7 @@ public class TvListActivity extends Activity {
                 typ.setTextSize(18);
                 typ.setPadding(15,10,10,10);
                 typ.setTextColor(Color.BLACK);
+                typ.setLayoutParams(tlp);
                 tr_head.addView(typ);
 
                 tl.addView(tr_head, new TableLayout.LayoutParams(
