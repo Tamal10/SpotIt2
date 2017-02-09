@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/menu">
+
+
+    <item android:id="@+id/menu_home"
+
+        android:title="Home" />
+
+    <item android:id="@+id/menu_report"
+
+        android:title="Report An Event" />
+
+    <item android:id="@+id/menu_search"
+
+        android:title="Search An Event" />
+
+    <item android:id="@+id/view_RL"
+
+        android:title="View Ranklist" />
+
+</menu>

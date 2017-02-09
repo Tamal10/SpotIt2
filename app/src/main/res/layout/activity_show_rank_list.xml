@@ -4,12 +4,11 @@
     android:id="@+id/activity_show_tv_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.example.turja.spotit2.ShowRankList">
-    <include
-        android:id="@+id/toolbar_home"
-        layout="@layout/toolbar_home">
-    </include>
+    <!--<include-->
+        <!--android:id="@+id/toolbar_home"-->
+        <!--layout="@layout/toolbar_home">-->
+    <!--</include>-->
 
     <TextView
         android:text="@string/rank_by_location"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.example.turja.spotit2.Report;
 import com.example.turja.spotit2.ReportEvent;
 
 import org.json.JSONArray;
@@ -36,7 +37,7 @@ public class SendTypesRequest extends AsyncTask<Void,Void,String> {
 
     @Override
     protected void onPostExecute(String s){
-        Intent intent = new Intent(context, ReportEvent.class);
+        Intent intent = new Intent(context, Report.class);
         ArrayList<String> a=new ArrayList<>();
         try {
             JSONArray jo=new JSONArray(s);

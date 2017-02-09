@@ -17,7 +17,7 @@ import java.util.Locale;
  */
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    ReportEvent r;
+    Report r;
     SearchEvent s;
     int start=0;
     final Calendar c = Calendar.getInstance();

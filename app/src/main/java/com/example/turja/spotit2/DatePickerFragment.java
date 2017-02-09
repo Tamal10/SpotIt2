@@ -19,7 +19,7 @@ import java.util.Locale;
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
     public Date pickedDate;
     final Calendar c = Calendar.getInstance();
-    ReportEvent r;
+    Report r;
     SearchEvent s;
 
 

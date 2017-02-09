@@ -1,13 +1,19 @@
 package com.example.turja.spotit2;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,6 +35,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import model.FileUtility;
 import model.TrafficViolation;
 import networking.SendTvData;
 
@@ -37,6 +44,7 @@ public class ReportEvent extends Activity {
     final int REQUEST_SELECT_IMAGE = 2;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int PLACE_PICKER_REQUEST = 3;
+    static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL=4;
     EditText datePicker;
     ImageButton galaryBtn,camBtn;
     private TimePickerFragment newTimeFragment = new TimePickerFragment();
@@ -77,19 +85,33 @@ public class ReportEvent extends Activity {
         }
     }
 
+
+
     public void showTimePickerDialog(View v) {
-        newTimeFragment.r=this;
+       // newTimeFragment.r=this;
         newTimeFragment.show(getFragmentManager(), "timePicker");
     }
     public void showDatePickerDialog(View v) {
-        newDateFragment.r=this;
+       // newDateFragment.r=this;
         newDateFragment.show(getFragmentManager(), "datePicker");
     }
 
     public void btnListener(View v)
     {
         if(v.getId()==R.id.upload) {
-            dispatchGalleryIntent();
+            int permissionCheck = ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+            if(permissionCheck!= PackageManager.PERMISSION_GRANTED){
+                System.out.println(1);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_READ_EXTERNAL);
+            }
+            else{
+                System.out.println(2);
+                dispatchGalleryIntent();
+            }
+
         }
         else if(v.getId()==R.id.takepic)
         {
@@ -146,6 +168,8 @@ public class ReportEvent extends Activity {
     }
     private void dispatchGalleryIntent()
     {
+
+
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -168,6 +192,16 @@ public class ReportEvent extends Activity {
                         Uri uri = data.getData();
 
                         try {
+                            String path = getRealPathFromURI( Uri.parse(uri.getPath()));
+//                            String path = getRealPathFromURI( uri);
+                            ExifInterface exif = new ExifInterface(path);
+
+                            String date_time = exif.getAttribute(ExifInterface.TAG_DATETIME);
+                            String latitude=exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+                            String longitude=exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+                            System.out.println(date_time);
+                            System.out.println(latitude);
+                            System.out.println(longitude);
                             photo = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                             iv= (ImageView) findViewById(R.id.reportImage);
                             iv.setImageBitmap(photo);
@@ -185,5 +219,43 @@ public class ReportEvent extends Activity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    dispatchGalleryIntent();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
 
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        System.out.println(result);
+        return result;
+    }
 }

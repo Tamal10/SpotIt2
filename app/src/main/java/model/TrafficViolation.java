@@ -198,6 +198,8 @@ public class TrafficViolation {
             date_time_end = sdf.format(c.getTime());
     }
 
+
+
     public boolean constructDataFromJson(JSONObject js){
         try{
 

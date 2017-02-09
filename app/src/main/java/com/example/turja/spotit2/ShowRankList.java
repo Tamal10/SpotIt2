@@ -2,11 +2,15 @@ package com.example.turja.spotit2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 import networking.SearchDay;
 import networking.SendPhotoRequest;
 import networking.SendSearchRequest;
+import networking.SendTypesRequest;
 
 public class ShowRankList extends Activity {
     String []rankedTV={"Traffic Signal Violation","Bike in FootPath","Drive in Wrong Side","Unfit car"};
@@ -39,7 +44,8 @@ public class ShowRankList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_rank_list);
-
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(200,90,90,90)));
 
         Bundle bundle = getIntent().getExtras();
         key = bundle.getStringArrayList("key");
@@ -47,7 +53,7 @@ public class ShowRankList extends Activity {
         criteria = bundle.getString("criteria");
 
         TextView t= (TextView) findViewById(R.id.textView3);
-        t.setText("Rank by"+criteria);
+        t.setText("Rank by "+criteria);
 
         final String[] list = new String[key.size() + 1];
         list[0] = criteria;
@@ -209,5 +215,35 @@ public class ShowRankList extends Activity {
             );
         }
 //        t1.setColumnStretchable(0,true);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent intent=new Intent(this,HomeActivity.class);;
+        if (id == R.id.menu_report) {
+//            return true;
+            new SendTypesRequest(this).execute();
+            return true;
+        }
+        else if (id == R.id.menu_search) {
+//          return true;
+            intent = new Intent(this,SearchEvent.class);
+        }
+        else if(id==R.id.view_RL){
+            intent = new Intent(this,RankTV.class);
+        }
+//        return super.onOptionsItemSelected(item);
+        startActivity(intent);
+        return true;
     }
 }

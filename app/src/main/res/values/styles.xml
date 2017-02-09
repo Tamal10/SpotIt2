@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. Material.Light.NoActionBar -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="AppTheme" parent="android:Theme.Material.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -9,12 +9,22 @@
     </style>
 
 
-    <style name="AnotherAppTheme" parent="Theme.AppCompat.Light">
+    <style name="AnotherAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
+
+    <!--<style name="MyCustomTheme" parent="android:Theme.Material.Light">-->
+        <!--<item name="android:actionBarStyle">@style/MyActionBarTheme</item>-->
+    <!--</style>-->
+
+    <!--<style name="MyActionBarTheme" parent="@android:style/Widget.Holo.Light.ActionBar">-->
+        <!--<item name="android:background">@color/colorPrimaryDark</item>-->
+    <!--</style>-->
+
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
     </style>

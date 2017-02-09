@@ -13,4 +13,5 @@
         android:text="@string/app_name"
         android:textColor="@color/colorAccent"
         android:textAppearance="@style/Toolbar.TitleText"/>
+
 </Toolbar>

@@ -3,7 +3,11 @@ package com.example.turja.spotit2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,6 +18,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import networking.SendSearchRequest;
+import networking.SendTypesRequest;
 
 public class SearchEvent extends Activity {
     static final int PLACE_PICKER_REQUEST = 3;
@@ -23,7 +28,16 @@ public class SearchEvent extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_event);
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(200,90,90,90)));
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
     public void showTimePickerDialog(View v) {
         newTimeFragment.s=this;
         if(v.getId()==R.id.endtimepicker) newTimeFragment.start=0;
@@ -86,5 +100,29 @@ public class SearchEvent extends Activity {
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        Intent intent=new Intent(this,HomeActivity.class);;
+        if (id == R.id.menu_report) {
+//            return true;
+            new SendTypesRequest(this).execute();
+            return true;
+        }
+        else if (id == R.id.menu_search) {
+//          return true;
+            intent = new Intent(this,SearchEvent.class);
+        }
+        else if(id==R.id.view_RL){
+            intent = new Intent(this,RankTV.class);
+        }
+//        return super.onOptionsItemSelected(item);
+        startActivity(intent);
+        return true;
     }
 }
